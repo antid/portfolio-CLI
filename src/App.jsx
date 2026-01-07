@@ -102,6 +102,8 @@ function App() {
   const [input, setInput] = useState('')
   const terminalRef = useRef(null)
   const inputRef = useRef(null)
+  const commandsWrapperRef = useRef(null)
+  const [showCommandsOverflow, setShowCommandsOverflow] = useState(false)
 
   const pages = Object.keys(portfolioData)
 
@@ -236,6 +238,25 @@ function App() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [history, currentPage])
 
+  useEffect(() => {
+    const checkOverflow = () => {
+      const el = commandsWrapperRef.current
+      if (!el) return setShowCommandsOverflow(false)
+      const hasOverflow = el.scrollWidth > el.clientWidth + 1
+      // show indicator only when there's content overflowing to the right
+      setShowCommandsOverflow(hasOverflow && el.scrollLeft + el.clientWidth < el.scrollWidth - 1)
+    }
+
+    checkOverflow()
+    window.addEventListener('resize', checkOverflow)
+    const el = commandsWrapperRef.current
+    if (el) el.addEventListener('scroll', checkOverflow)
+    return () => {
+      window.removeEventListener('resize', checkOverflow)
+      if (el) el.removeEventListener('scroll', checkOverflow)
+    }
+  }, [])
+
   return (
     <div className="cli-container" onClick={(e) => {
       // Only focus input if no text is currently selected
@@ -270,8 +291,14 @@ function App() {
           />
         </div>
       </div>
-      <div className="cli-commands">
-        <div className="commands-wrapper">
+      <div className={`cli-commands ${showCommandsOverflow ? 'scrollable' : ''}`}>
+        <div className="commands-wrapper" ref={commandsWrapperRef} onScroll={() => {
+          // onScroll will trigger the effect's listener as well, but keep this for immediate feedback
+          const el = commandsWrapperRef.current
+          if (!el) return
+          const hasOverflow = el.scrollWidth > el.clientWidth + 1
+          setShowCommandsOverflow(hasOverflow && el.scrollLeft + el.clientWidth < el.scrollWidth - 1)
+        }}>
           <span className="command-item" onClick={() => handleCommand('help')}>[<span className="cmd-key">h</span>]elp</span>
           <span className="command-item" onClick={() => handleCommand('clear')}>[<span className="cmd-key">c</span>]lear</span>
           <span className="command-item" onClick={() => handleCommand('work')}>[<span className="cmd-key">w</span>]ork</span>

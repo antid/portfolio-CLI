@@ -198,6 +198,47 @@ body {
   gap: 1.5rem;
 }
 
+@media (max-width: 600px) {
+  .cli-commands {
+    padding: 0.5rem 0.75rem;
+  }
+  .commands-wrapper {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 0.75rem;
+  }
+  /* hide native scrollbars but keep scroll behavior */
+  .commands-wrapper {
+    -ms-overflow-style: none; /* IE/Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .commands-wrapper::-webkit-scrollbar {
+    display: none; /* Chrome/Safari/Webkit */
+    height: 0;
+  }
+  .cli-commands.scrollable {
+    position: relative;
+  }
+  .cli-commands.scrollable::after {
+    content: '\203A';
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    /* small translucent backdrop to improve contrast without shifting layout */
+    background: rgba(10,14,39,0.45);
+    border-radius: 8px;
+    padding: 2px 6px;
+    color: #00ff41;
+    font-weight: 700;
+    pointer-events: none;
+    text-shadow: 0 0 6px rgba(0,255,65,0.6);
+    line-height: 1;
+    font-size: 14px;
+  }
+}
+
 .copyright {
   white-space: nowrap;
   font-size: 11px;
