@@ -2,19 +2,6 @@ import { useState, useRef, useEffect } from 'react'
 import './App.css'
 
 const portfolioData = {
-  home: {
-    title: 'Design Engineer & Creative Developer',
-    content: [
-      '🎨 Bridging Design & Code',
-      '',
-      'Crafting exceptional digital experiences through the intersection of design and code.',
-      '15+ years transforming ideas into pixel-perfect, performant products.',
-      '',
-      '✨ Available for new projects',
-      '',
-      'Commands: help, work, process, about, contact'
-    ]
-  },
   work: {
     title: 'Featured Work',
     content: [
@@ -51,6 +38,12 @@ const portfolioData = {
   about: {
     title: 'About Me',
     content: [
+      '🎨 Bridging Design & Code',
+      'Crafting exceptional digital experiences through the intersection of design and code.',
+      '15+ years transforming ideas into pixel-perfect, performant products.',
+      '',
+      '✨ Available for new projects',
+      '',
       '👋 I\'m Alex Martinez, a design engineer who bridges the gap between design',
       'and development, creating digital experiences that are both beautiful and functional.',
       '',
@@ -87,7 +80,7 @@ function App() {
     '',
     'Type "help" or press Ctrl+H to see available commands.'
   ])
-  const [currentPage, setCurrentPage] = useState('home')
+  const [currentPage, setCurrentPage] = useState('about')
   const [input, setInput] = useState('')
   const terminalRef = useRef(null)
   const inputRef = useRef(null)
@@ -99,7 +92,6 @@ function App() {
       'Available commands:',
       'help              - Show this help message',
       'clear             - Clear the terminal',
-      'home              - Go to home',
       'work              - Show featured work',
       'process           - Show my process',
       'about             - About me',
@@ -112,7 +104,6 @@ function App() {
       return []
     },
     exit: () => ['Thanks for visiting! Goodbye.', ''],
-    home: () => portfolioData.home.content,
     work: () => portfolioData.work.content,
     process: () => portfolioData.process.content,
     about: () => portfolioData.about.content,
@@ -189,7 +180,6 @@ function App() {
       const keyMap = {
         'h': 'help',
         'c': 'clear',
-        'm': 'home',
         'w': 'work',
         'p': 'process',
         'a': 'about',
@@ -209,7 +199,13 @@ function App() {
   }, [history, currentPage])
 
   return (
-    <div className="cli-container">
+    <div className="cli-container" onClick={(e) => {
+      // Only focus input if no text is currently selected
+      const selection = window.getSelection().toString()
+      if (!selection && (e.target === terminalRef.current || e.target.className === 'cli-container')) {
+        inputRef.current?.focus()
+      }
+    }}>
       <div className="cli-terminal" ref={terminalRef}>
         {history.map((line, idx) => (
           <div key={idx} className="terminal-line">
@@ -237,7 +233,6 @@ function App() {
         <div className="commands-wrapper">
           <span className="command-item" onClick={() => handleCommand('help')}>[<span className="cmd-key">h</span>]elp</span>
           <span className="command-item" onClick={() => handleCommand('clear')}>[<span className="cmd-key">c</span>]lear</span>
-          <span className="command-item" onClick={() => handleCommand('home')}>ho[<span className="cmd-key">m</span>]e</span>
           <span className="command-item" onClick={() => handleCommand('work')}>[<span className="cmd-key">w</span>]ork</span>
           <span className="command-item" onClick={() => handleCommand('process')}>[<span className="cmd-key">p</span>]rocess</span>
           <span className="command-item" onClick={() => handleCommand('about')}>[<span className="cmd-key">a</span>]bout</span>
