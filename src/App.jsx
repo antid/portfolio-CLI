@@ -235,14 +235,14 @@ function App() {
       </div>
       <div className="cli-commands">
         <div className="commands-wrapper">
-          <span className="command-item">[<span className="cmd-key">h</span>]elp</span>
-          <span className="command-item">[<span className="cmd-key">c</span>]lear</span>
-          <span className="command-item">ho[<span className="cmd-key">m</span>]e</span>
-          <span className="command-item">[<span className="cmd-key">w</span>]ork</span>
-          <span className="command-item">[<span className="cmd-key">p</span>]rocess</span>
-          <span className="command-item">[<span className="cmd-key">a</span>]bout</span>
-          <span className="command-item">c[<span className="cmd-key">o</span>]ntact</span>
-          <span className="command-item">[<span className="cmd-key">e</span>]xit</span>
+          <span className="command-item" onClick={() => handleCommand('help')}>[<span className="cmd-key">h</span>]elp</span>
+          <span className="command-item" onClick={() => handleCommand('clear')}>[<span className="cmd-key">c</span>]lear</span>
+          <span className="command-item" onClick={() => handleCommand('home')}>ho[<span className="cmd-key">m</span>]e</span>
+          <span className="command-item" onClick={() => handleCommand('work')}>[<span className="cmd-key">w</span>]ork</span>
+          <span className="command-item" onClick={() => handleCommand('process')}>[<span className="cmd-key">p</span>]rocess</span>
+          <span className="command-item" onClick={() => handleCommand('about')}>[<span className="cmd-key">a</span>]bout</span>
+          <span className="command-item" onClick={() => handleCommand('contact')}>c[<span className="cmd-key">o</span>]ntact</span>
+          <span className="command-item" onClick={() => handleCommand('exit')}>[<span className="cmd-key">e</span>]xit</span>
         </div>
         <div className="copyright">© 2026 All rights reserved</div>
       </div>
