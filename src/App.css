@@ -108,6 +108,12 @@ body {
   font-family: 'JetBrains Mono', monospace;
 }
 
+@media (max-width: 600px) {
+  .terminal-line.ascii-art {
+    font-size: 6px;
+  }
+}
+
 .terminal-input {
   display: flex;
   align-items: center;
