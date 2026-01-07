@@ -280,7 +280,16 @@ function App() {
             ref={inputRef}
             type="text"
             value={input}
+            autoCapitalize="off"
             onChange={(e) => setInput(e.target.value)}
+            onFocus={() => {
+              // Scroll to bottom on mobile when input is focused
+              setTimeout(() => {
+                if (terminalRef.current) {
+                  terminalRef.current.scrollTop = terminalRef.current.scrollHeight
+                }
+              }, 100)
+            }}
             onKeyPress={(e) => {
               if (e.key === 'Enter') {
                 handleCommand(input)
