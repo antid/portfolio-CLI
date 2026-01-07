@@ -22,17 +22,13 @@ const portfolioData = {
     content: [
       '🛠️ A proven methodology refined over 15 years:',
       '',
-      '1. 🔎 Discovery & Research',
-      'Deep diving into user needs through research, interviews, and competitive analysis.',
+      '1. 🔎 Discovery & Research: Deep diving into user needs through research, interviews, and competitive analysis.',
       '',
-      '2. 💡 Ideation & Strategy',
-      'Defining problems, ideating solutions, and creating strategic frameworks.',
+      '2. 💡 Ideation & Strategy: Defining problems, ideating solutions, and creating strategic frameworks.',
       '',
-      '3. 🎨 Design & Development',
-      'Crafting high-fidelity designs and building production-ready code.',
+      '3. 🎨 Design & Development: Crafting high-fidelity designs and building production-ready code.',
       '',
-      '4. ✅ Testing & Launch',
-      'Rigorous testing, refinement, and deployment.'
+      '4. ✅ Testing & Launch: Rigorous testing, refinement, and deployment.'
     ]
   },
   about: {
