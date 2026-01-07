@@ -102,6 +102,12 @@ body {
   text-shadow: 0 0 5px rgba(0, 255, 65, 0.3);
 }
 
+.terminal-line.ascii-art {
+  font-size: 8px;
+  opacity: 0.95;
+  font-family: 'JetBrains Mono', monospace;
+}
+
 .terminal-input {
   display: flex;
   align-items: center;

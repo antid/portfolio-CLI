@@ -73,6 +73,24 @@ const portfolioData = {
 
 function App() {
   const [history, setHistory] = useState([
+    '                   /                                                            ',
+    '                  /%%,                                                         ',
+    '                  /%%%%*                                                        ',
+    '                  /%%%%%%.                                                      ',
+    '                  /%%/%%%%%(                                                   ',
+    '       %%%%%%%%%%%%%%%, ,%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#    ',
+    '     ,%%%#,     (%%%%%,    %%%%%*   ,#%(            /%/   /%%*         ,/%%%%%, ',
+    '    ,%%%%        #%%%%,      %%%     #%%%###    /##%%%.   .%%     (###/    %%%%*',
+    '    %%%%.   %%    %%%%,       ,#     #%%%%%%    (%%%%%.   .%%     #%%%%%    *%%%',
+    '   %%%%/   #%%(   .%%%,    %(        #%%%%%%    (%%%%%.   .%%     #%%%%%    *%%%',
+    "  (%%%#            /%%,    %%%/      #%%%%%%    (%%%%%.   .%%              %%%%*",
+    ' /%%%.    %%%%%%*   *%/   *%%%%%#    #%%%%%%,  .#%%%%%/   /%%,         ,*%%%%%# ',
+    '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#  #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%/   ',
+    '                                (%%%/#%%%#((((((((((((((((((((((((((.           ',
+    '                                  .%%%%%%                                      ',
+    '                                    *%%%%                                      ',
+    '                                      /%%                                        ',
+    '',
     'antid.co — Portfolio CLI',
     '',
     '👋 Hi! I\'m Alex Martinez and this is an interactive CLI-style portfolio showcasing my work as a Design Engineer.',
@@ -117,6 +135,24 @@ function App() {
 
     if (trimmed === 'clear') {
       setHistory([
+        '                   /                                                            ',
+        '                  /%%,                                                         ',
+        '                  /%%%%*                                                        ',
+        '                  /%%%%%%.                                                      ',
+        '                  /%%/%%%%%(                                                   ',
+        '       %%%%%%%%%%%%%%%, ,%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#    ',
+        '     ,%%%#,     (%%%%%,    %%%%%*   ,#%(            /%/   /%%*         ,/%%%%%, ',
+        '    ,%%%%        #%%%%,      %%%     #%%%###    /##%%%.   .%%     (###/    %%%%*',
+        '    %%%%.   %%    %%%%,       ,#     #%%%%%%    (%%%%%.   .%%     #%%%%%    *%%%',
+        '   %%%%/   #%%(   .%%%,    %(        #%%%%%%    (%%%%%.   .%%     #%%%%%    *%%%',
+        "  (%%%#            /%%,    %%%/      #%%%%%%    (%%%%%.   .%%              %%%%*",
+        ' /%%%.    %%%%%%*   *%/   *%%%%%#    #%%%%%%,  .#%%%%%/   /%%,         ,*%%%%%# ',
+        '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#  #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%/   ',
+        '                                (%%%/#%%%#((((((((((((((((((((((((((.           ',
+        '                                  .%%%%%%                                      ',
+        '                                    *%%%%                                      ',
+        '                                      /%%                                        ',
+        '',
         'antid.co — Portfolio CLI',
         '',
         '👋 Hi! I\'m Alex Martinez and this is an interactive CLI-style portfolio showcasing my work as a Design Engineer.',
@@ -173,6 +209,8 @@ function App() {
     }
   }, [history])
 
+  const firstBlankIndex = history.findIndex((l) => l === '')
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (!e.ctrlKey && !e.metaKey) return
@@ -207,11 +245,14 @@ function App() {
       }
     }}>
       <div className="cli-terminal" ref={terminalRef}>
-        {history.map((line, idx) => (
-          <div key={idx} className="terminal-line">
-            {line}
-          </div>
-        ))}
+        {history.map((line, idx) => {
+          const isAscii = firstBlankIndex !== -1 && idx < firstBlankIndex
+          return (
+            <div key={idx} className={"terminal-line" + (isAscii ? ' ascii-art' : '')}>
+              {line}
+            </div>
+          )
+        })}
         <div className="terminal-input">
           <span className="prompt">$</span>
           <input
