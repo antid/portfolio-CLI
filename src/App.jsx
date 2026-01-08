@@ -22,17 +22,13 @@ const portfolioData = {
     content: [
       '🛠️ A proven methodology refined over 15 years:',
       '',
-      '01 🔎 Discovery & Research',
-      '   Deep diving into user needs through research, interviews, and competitive analysis.',
+      '1. 🔎 Discovery & Research: Deep diving into user needs through research, interviews, and competitive analysis.',
       '',
-      '02 💡 Ideation & Strategy',
-      '   Defining problems, ideating solutions, and creating strategic frameworks.',
+      '2. 💡 Ideation & Strategy: Defining problems, ideating solutions, and creating strategic frameworks.',
       '',
-      '03 🎨 Design & Development',
-      '   Crafting high-fidelity designs and building production-ready code.',
+      '3. 🎨 Design & Development: Crafting high-fidelity designs and building production-ready code.',
       '',
-      '04 ✅ Testing & Launch',
-      '   Rigorous testing, refinement, and deployment.'
+      '4. ✅ Testing & Launch: Rigorous testing, refinement, and deployment.'
     ]
   },
   about: {
@@ -55,7 +51,7 @@ const portfolioData = {
       'and agencies worldwide, helping them transform ideas into exceptional digital products.',
       '',
       '⚡ Expertise: React, Next.js, TypeScript, Tailwind CSS, Design Systems,',
-      'Motion Design, Accessibility, Performance, User Research'
+      'Motion Design, Accessibility and Performance.'
     ]
   },
   contact: {
@@ -66,7 +62,7 @@ const portfolioData = {
       '',
       '🐙 GitHub: https://github.com/antid',
       '💼 LinkedIn: https://www.linkedin.com/in/alex-martinez-b4335729/',
-      '✉️ Email: available on GitHub'
+      '✉️ Email: antid at gmail.com'
     ]
   }
 }
@@ -90,8 +86,6 @@ function App() {
     '                                  .%%%%%%                                      ',
     '                                    *%%%%                                      ',
     '                                      /%%                                        ',
-    '',
-    'antid.co — Portfolio CLI',
     '',
     '👋 Hi! I\'m Alex Martinez and this is an interactive CLI-style portfolio showcasing my work as a Design Engineer.',
     'Navigate through my projects, process, and experience using commands.',
@@ -154,8 +148,6 @@ function App() {
         '                                  .%%%%%%                                      ',
         '                                    *%%%%                                      ',
         '                                      /%%                                        ',
-        '',
-        'antid.co — Portfolio CLI',
         '',
         '👋 Hi! I\'m Alex Martinez and this is an interactive CLI-style portfolio showcasing my work as a Design Engineer.',
         'Navigate through my projects, process, and experience using commands.',
