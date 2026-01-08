@@ -2,33 +2,12 @@ import { useState, useRef, useEffect } from 'react'
 import './App.css'
 
 const portfolioData = {
-  work: {
-    title: 'Featured Work',
+  projects: {
+    title: 'Projects',
     content: [
-      '💼 A curated selection of projects that showcase my design and development capabilities.',
-      '',
-      '1. 🌐 Company Website (Design & Development) - Stratum Security',
-      '2. 📝 Code Snippets App (Product Design) - Codiga',
-      '3. 🔍 Static Code Analysis (Product Design) - Codiga',
-      '4. 🎯 XFIL (UX • UI • Design System) - SaaS • Security Tools',
-      '5. 🎨 Incetar (Branding • Company Website)',
-      '6. 📖 Design System (Design System Definition) - Codiga',
-      '',
-      'Use: project <number> for more details'
-    ]
-  },
-  process: {
-    title: 'My Process',
-    content: [
-      '🛠️ A proven methodology refined over 15 years:',
-      '',
-      '1. 🔎 Discovery & Research: Deep diving into user needs through research, interviews, and competitive analysis.',
-      '',
-      '2. 💡 Ideation & Strategy: Defining problems, ideating solutions, and creating strategic frameworks.',
-      '',
-      '3. 🎨 Design & Development: Crafting high-fidelity designs and building production-ready code.',
-      '',
-      '4. ✅ Testing & Launch: Rigorous testing, refinement, and deployment.'
+      '1. 💻 Antid Old Portfolio (React, Vite) – https://antid-website-v8.vercel.app/',
+      '2. 🧭 Orbio Add Position E2E Flow – https://orbio-one.vercel.app/',
+      '3. 🧰 DevToolbox (Prototyping exercise) – https://devtoolbox-two.vercel.app/'
     ]
   },
   about: {
@@ -68,6 +47,8 @@ const portfolioData = {
 }
 
 function App() {
+  const urlRegex = /(https?:\/\/[^\s]+)/g
+
   const [history, setHistory] = useState([
     '                   /                                                            ',
     '                  /%%,                                                         ',
@@ -106,11 +87,9 @@ function App() {
       'Available commands:',
       'help              - Show this help message',
       'clear             - Clear the terminal',
-      'work              - Show featured work',
-      'process           - Show my process',
+      'projects          - Show projects',
       'about             - About me',
       'contact           - Contact information',
-      'project <number>  - View specific project (1-6)',
       'exit              - Close the terminal',
       ''
     ],
@@ -118,10 +97,32 @@ function App() {
       return []
     },
     exit: () => ['Thanks for visiting! Goodbye.', ''],
-    work: () => portfolioData.work.content,
-    process: () => portfolioData.process.content,
+    projects: () => portfolioData.projects.content,
     about: () => portfolioData.about.content,
     contact: () => portfolioData.contact.content,
+  }
+
+  const renderLineWithLinks = (line) => {
+    if (typeof line !== 'string') return line
+    const parts = []
+    let lastIndex = 0
+    const punctSet = '.,);]!?'
+    for (const match of line.matchAll(urlRegex)) {
+      const start = match.index || 0
+      const url = match[0]
+      if (start > lastIndex) parts.push(line.slice(lastIndex, start))
+      let display = url
+      let trailing = ''
+      while (display.length && punctSet.includes(display.slice(-1))) {
+        trailing = display.slice(-1) + trailing
+        display = display.slice(0, -1)
+      }
+      parts.push(<a key={`link-${start}`} href={display} target="_blank" rel="noopener noreferrer">{display}</a>)
+      if (trailing) parts.push(trailing)
+      lastIndex = start + url.length
+    }
+    if (lastIndex < line.length) parts.push(line.slice(lastIndex))
+    return parts.length ? parts : line
   }
 
   const handleCommand = (cmd) => {
@@ -160,33 +161,16 @@ function App() {
 
     const newHistory = [...history, `$ ${cmd}`]
 
-    if (trimmed.startsWith('project ')) {
-      const projectNum = parseInt(trimmed.split(' ')[1])
-      if (projectNum >= 1 && projectNum <= 6) {
-        setCurrentPage('work')
-        const projectsInfo = {
-          1: ['Company Website', 'Design & Development', 'Stratum Security', 'A modern company website showcasing brand identity and user-friendly design.'],
-          2: ['Code Snippets App', 'Product Design', 'Codiga', 'An innovative platform for managing and sharing code snippets with team collaboration features.'],
-          3: ['Static Code Analysis', 'Product Design', 'Codiga', 'A powerful tool for analyzing code quality and identifying potential issues before deployment.'],
-          4: ['XFIL', 'UX • UI • Design System', 'SaaS • Security Tools', 'A comprehensive security tool with intuitive interface and robust design system.'],
-          5: ['Incetar', 'Branding • Company Website', '', 'Complete brand identity development and website design for a modern startup.'],
-          6: ['Design System', 'Design System Definition', 'Codiga', 'A scalable design system ensuring consistency across all digital products.']
-        }
-        const project = projectsInfo[projectNum]
-        newHistory.push('', `Project ${projectNum}: ${project[0]}`, `Type: ${project[1]}`, `Company: ${project[2]}`, `${project[3]}`, '')
-      } else {
-        newHistory.push('Project not found. Use: project <1-6>')
-        newHistory.push('')
-      }
-    } else if (commands[trimmed]) {
+    if (commands[trimmed]) {
       const output = commands[trimmed]()
       if (output.length > 0) {
         newHistory.push('')
         newHistory.push(...output)
+        newHistory.push('--------------------------------')
         newHistory.push('')
       }
       if (trimmed !== 'clear') {
-        setCurrentPage(trimmed === 'work' ? 'work' : trimmed === 'process' ? 'process' : trimmed === 'about' ? 'about' : trimmed === 'contact' ? 'contact' : currentPage)
+        setCurrentPage(trimmed === 'projects' ? 'projects' : trimmed === 'about' ? 'about' : trimmed === 'contact' ? 'contact' : currentPage)
       }
     } else {
       newHistory.push(`Command not found: ${trimmed}. Type "help" for available commands.`)
@@ -212,8 +196,7 @@ function App() {
       const keyMap = {
         'h': 'help',
         'c': 'clear',
-        'w': 'work',
-        'p': 'process',
+        'p': 'projects',
         'a': 'about',
         'o': 'contact',
         'e': 'exit'
@@ -262,7 +245,7 @@ function App() {
           const isAscii = firstBlankIndex !== -1 && idx < firstBlankIndex
           return (
             <div key={idx} className={"terminal-line" + (isAscii ? ' ascii-art' : '')}>
-              {line}
+              {renderLineWithLinks(line)}
             </div>
           )
         })}
@@ -302,8 +285,7 @@ function App() {
         }}>
           <span className="command-item" onClick={() => handleCommand('help')}>[<span className="cmd-key">h</span>]elp</span>
           <span className="command-item" onClick={() => handleCommand('clear')}>[<span className="cmd-key">c</span>]lear</span>
-          <span className="command-item" onClick={() => handleCommand('work')}>[<span className="cmd-key">w</span>]ork</span>
-          <span className="command-item" onClick={() => handleCommand('process')}>[<span className="cmd-key">p</span>]rocess</span>
+          <span className="command-item" onClick={() => handleCommand('projects')}>[<span className="cmd-key">p</span>]rojects</span>
           <span className="command-item" onClick={() => handleCommand('about')}>[<span className="cmd-key">a</span>]bout</span>
           <span className="command-item" onClick={() => handleCommand('contact')}>c[<span className="cmd-key">o</span>]ntact</span>
           <span className="command-item" onClick={() => handleCommand('exit')}>[<span className="cmd-key">e</span>]xit</span>
