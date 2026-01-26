@@ -2,12 +2,11 @@ import { useState, useRef, useEffect } from 'react'
 import './App.css'
 
 const portfolioData = {
-  projects: {
-    title: 'Projects',
+  experiments: {
+    title: 'Experiments',
     content: [
-      '1. 💻 Antid Old Portfolio (React, Vite) – https://antid-website-v8.vercel.app/',
-      '2. 🧭 Orbio Add Position E2E Flow – https://orbio-one.vercel.app/',
-      '3. 🧰 DevToolbox (Prototyping exercise) – https://devtoolbox-two.vercel.app/'
+      '1. 🧭 Orbio Add Position E2E Flow – https://orbio-one.vercel.app/',
+      '2. 🧰 DevToolbox (Prototyping exercise) – https://devtoolbox-two.vercel.app/'
     ]
   },
   about: {
@@ -69,7 +68,7 @@ function App() {
     '                                      /%%                                        ',
     '',
     '👋 Hi! I\'m Alex Martinez and this is an interactive CLI-style portfolio showcasing my work as a Design Engineer.',
-    'Navigate through my projects, process, and experience using commands.',
+    'Navigate through my experiments, process, and experience using commands.',
     '',
     'Type "help" or press Ctrl+H to see available commands.'
   ])
@@ -87,7 +86,7 @@ function App() {
       'Available commands:',
       'help              - Show this help message',
       'clear             - Clear the terminal',
-      'projects          - Show projects',
+      'experiments       - Show experiments',
       'about             - About me',
       'contact           - Contact information',
       'exit              - Close the terminal',
@@ -97,7 +96,7 @@ function App() {
       return []
     },
     exit: () => ['Thanks for visiting! Goodbye.', ''],
-    projects: () => portfolioData.projects.content,
+    experiments: () => portfolioData.experiments.content,
     about: () => portfolioData.about.content,
     contact: () => portfolioData.contact.content,
   }
@@ -151,7 +150,7 @@ function App() {
         '                                      /%%                                        ',
         '',
         '👋 Hi! I\'m Alex Martinez and this is an interactive CLI-style portfolio showcasing my work as a Design Engineer.',
-        'Navigate through my projects, process, and experience using commands.',
+        'Navigate through my experiments, process, and experience using commands.',
         '',
         'Type "help" or press Ctrl+H to see available commands.'
       ])
@@ -170,7 +169,7 @@ function App() {
         newHistory.push('')
       }
       if (trimmed !== 'clear') {
-        setCurrentPage(trimmed === 'projects' ? 'projects' : trimmed === 'about' ? 'about' : trimmed === 'contact' ? 'contact' : currentPage)
+        setCurrentPage(trimmed === 'experiments' ? 'experiments' : trimmed === 'about' ? 'about' : trimmed === 'contact' ? 'contact' : currentPage)
       }
     } else {
       newHistory.push(`Command not found: ${trimmed}. Type "help" for available commands.`)
@@ -196,10 +195,10 @@ function App() {
       const keyMap = {
         'h': 'help',
         'c': 'clear',
-        'p': 'projects',
+        'e': 'experiments',
         'a': 'about',
         'o': 'contact',
-        'e': 'exit'
+        'x': 'exit'
       }
       
       const command = keyMap[e.key.toLowerCase()]
@@ -285,10 +284,10 @@ function App() {
         }}>
           <span className="command-item" onClick={() => handleCommand('help')}>[<span className="cmd-key">h</span>]elp</span>
           <span className="command-item" onClick={() => handleCommand('clear')}>[<span className="cmd-key">c</span>]lear</span>
-          <span className="command-item" onClick={() => handleCommand('projects')}>[<span className="cmd-key">p</span>]rojects</span>
+          <span className="command-item" onClick={() => handleCommand('experiments')}>[<span className="cmd-key">e</span>]xperiments</span>
           <span className="command-item" onClick={() => handleCommand('about')}>[<span className="cmd-key">a</span>]bout</span>
           <span className="command-item" onClick={() => handleCommand('contact')}>c[<span className="cmd-key">o</span>]ntact</span>
-          <span className="command-item" onClick={() => handleCommand('exit')}>[<span className="cmd-key">e</span>]xit</span>
+          <span className="command-item" onClick={() => handleCommand('exit')}>e[<span className="cmd-key">x</span>]it</span>
         </div>
         <div className="copyright">© 2026 All rights reserved</div>
       </div>
