@@ -6,7 +6,7 @@ const portfolioData = {
     title: 'Experiments',
     content: [
       '1. 🧭 Orbio Add Position E2E Flow – https://orbio-one.vercel.app/',
-      '2. 🧰 DevToolbox (Prototyping exercise) – https://devtoolbox-two.vercel.app/'
+      '2. ✨ Lint-UI – https://github.com/antid/lint-ui'
     ]
   },
   about: {
